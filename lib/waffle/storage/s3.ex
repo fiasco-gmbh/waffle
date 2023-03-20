@@ -225,6 +225,7 @@ defmodule Waffle.Storage.S3 do
     # fallback to default, if neither is present.
     options = put_in(options[:expires_in], options[:expires_in] || @default_expiry_time)
     options = put_in(options[:virtual_host], virtual_host())
+    options = put_in(options[:bucket_as_host], bucket_as_host())
     config = Config.new(:s3, Application.get_all_env(:ex_aws))
     s3_key = s3_key(definition, version, file_and_scope)
     s3_bucket = s3_bucket(definition, file_and_scope)
@@ -256,6 +257,10 @@ defmodule Waffle.Storage.S3 do
 
   defp virtual_host do
     Application.get_env(:waffle, :virtual_host) || false
+  end
+
+  defp bucket_as_host do
+    Application.get_env(:waffle, :bucket_as_host) || false
   end
 
   defp s3_bucket(definition, file_and_scope) do
