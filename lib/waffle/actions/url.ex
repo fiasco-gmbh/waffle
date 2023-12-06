@@ -113,7 +113,7 @@ defmodule Waffle.Actions.Url do
       look_scope = scope || file
 
       unless definition.get_lazy_version_processed(version, look_scope) do
-        original_url = url(definition, {file, look_scope}, :original, [])
+        original_url = url(definition, {file, look_scope}, :original, [signed: true])
         original = Waffle.File.new(original_url, definition)
         Waffle.Actions.Store.put_version(definition, version, {{:ok, original}, look_scope})
       end
