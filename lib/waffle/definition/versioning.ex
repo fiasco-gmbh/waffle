@@ -27,6 +27,7 @@ defmodule Waffle.Definition.Versioning do
   defmacro __using__(_) do
     quote do
       @versions [:original]
+      @lazy_versions []
       @before_compile Waffle.Definition.Versioning
     end
   end
@@ -45,7 +46,11 @@ defmodule Waffle.Definition.Versioning do
   defmacro __before_compile__(_env) do
     quote do
       def transform(_, _), do: :noaction
-      def __versions, do: @versions
+      def __versions, do: @versions ++ @lazy_versions
+      def __lazy_versions, do: @lazy_versions
+
+      def set_lazy_version_processed(_version, _scope), do: nil
+      def get_lazy_version_processed(version, _scope), do: false
     end
   end
 end
