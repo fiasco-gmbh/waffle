@@ -59,7 +59,7 @@ defmodule Waffle.Definition.Versioning do
       def __lazy_versions, do: @lazy_versions
 
       def set_lazy_version_processed(_version, _scope), do: nil
-      def get_lazy_version_processed(version, _scope), do: false
+      def get_lazy_version_processed(_version, _scope), do: false
     end
   end
 end
