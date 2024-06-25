@@ -148,6 +148,10 @@ defmodule Waffle.Actions.Store do
           definition.set_lazy_version_processed(version, scope)
         end
 
+        if version in definition.__lazy_versions() do
+          definition.set_lazy_version_processed(version, scope)
+        end
+
         case definition.transform(version, {file, scope}) do
           :noaction ->
             # We don't have to cleanup after `:noaction` transformations
