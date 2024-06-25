@@ -144,7 +144,7 @@ defmodule Waffle.Actions.Store do
         file = %Waffle.File{file | file_name: file_name}
         result = definition.__storage().put(definition, version, {file, scope})
 
-        if version in definition.__lazy_versions do
+        if version in definition.__lazy_versions() do
           definition.set_lazy_version_processed(version, scope)
         end
 
